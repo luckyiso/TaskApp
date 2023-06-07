@@ -15,9 +15,16 @@ class GetTasks(
     ): Flow<List<Task>>{
         return repository.getTasks().map{ Tasks ->
             when (taskOrder.orderType){
-                is OrderType.Descending ->{
+                is OrderType.Ascending ->{
                     when(taskOrder){
                         is TaskOrder.Date ->Tasks.sortedBy { it.Time }
+                        is TaskOrder.Title -> Tasks.sortedBy { it.Title }
+                    }
+                }
+                is OrderType.Descending -> {
+                    when(taskOrder){
+                        is TaskOrder.Date ->Tasks.sortedByDescending { it.Time }
+                        is TaskOrder.Title -> Tasks.sortedByDescending { it.Title }
                     }
                 }
             }

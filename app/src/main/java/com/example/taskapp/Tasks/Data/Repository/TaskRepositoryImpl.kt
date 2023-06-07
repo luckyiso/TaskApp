@@ -20,7 +20,7 @@ class TaskRepositoryImpl(
         dao.insertTask(Task)
     }
 
-    override suspend fun deletetask(Task: Task) {
+    override suspend fun deleteTask(Task: Task) {
         dao.deleteTask(Task)
     }
 }

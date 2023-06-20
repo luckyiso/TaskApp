@@ -7,6 +7,7 @@ import com.example.taskapp.Tasks.Data.Repository.TaskRepositoryImpl
 import com.example.taskapp.Tasks.Domain.Repository.TaskRepository
 import com.example.taskapp.Tasks.Domain.UseCase.AddTask
 import com.example.taskapp.Tasks.Domain.UseCase.DeleteTaskCase
+import com.example.taskapp.Tasks.Domain.UseCase.GetTask
 import com.example.taskapp.Tasks.Domain.UseCase.GetTasks
 import com.example.taskapp.Tasks.Domain.UseCase.TaskUseCases
 import dagger.Module
@@ -39,7 +40,8 @@ object AppModule {
         return TaskUseCases(
             getTasks = GetTasks(repository),
             deleteTask = DeleteTaskCase(repository),
-            addTask = AddTask(repository)
+            addTask = AddTask(repository),
+            getTask = GetTask(repository)
         )
     }
 }

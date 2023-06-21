@@ -37,6 +37,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.unit.dp
 import com.example.taskapp.Tasks.Presentation.Tasks.Components.OrderSection
 import com.example.taskapp.Tasks.Presentation.Tasks.Components.TaskItem
+import com.example.taskapp.Tasks.Presentation.Utility.Screen
 import kotlinx.coroutines.launch
 
 
@@ -54,7 +55,7 @@ fun TasksScreen (
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
-
+                    navController.navigate(Screen.AddEditTaskScreen.route)
                 },
                 Modifier.background(MaterialTheme.colorScheme.primary)
             ) {
@@ -111,7 +112,10 @@ fun TasksScreen (
                         modifier = Modifier
                             .fillMaxWidth()
                             .clickable {
-
+                                navController.navigate(
+                                    Screen.AddEditTaskScreen.route +
+                                            "?noteId=${task.id}"
+                                )
                             },
                         onDeleteClick = {
                             viewModel.onEvent(TasksEvent.DeleteTask(task))

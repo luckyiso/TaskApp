@@ -17,12 +17,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import androidx.compose.material.ScaffoldState
 import androidx.compose.material.*
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.taskapp.Tasks.Presentation.AddEditTask.Components.TransparentHintTextField
+import kotlinx.coroutines.flow.collectLatest
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun AddEditTaskEvent(
     navController: NavController,
@@ -35,7 +37,21 @@ fun AddEditTaskEvent(
 
     val scope = rememberCoroutineScope()
 
-    @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
+    LaunchedEffect(key1 = true){
+        viewModel.eventFlow.collectLatest { event ->
+            when(event){
+                is AddEditTaskViewModel.UiEvent.ShowSnackBar -> {
+                    scaffoldState.snackbarHostState.showSnackbar(
+                        message = event.message
+                    )
+                }
+                is AddEditTaskViewModel.UiEvent.SaveTask -> {
+                    navController.navigateUp()
+                }
+            }
+        }
+    }
+
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(

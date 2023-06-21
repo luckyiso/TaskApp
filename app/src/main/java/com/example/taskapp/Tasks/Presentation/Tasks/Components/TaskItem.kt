@@ -58,7 +58,8 @@ fun TaskItem(
             ) {
                 Icon(
                     imageVector = Icons.Default.Delete,
-                    contentDescription = "Удалить задачу"
+                    contentDescription = "Удалить задачу",
+                    tint = MaterialTheme.colorScheme.onSurface
                 )
             }
         }

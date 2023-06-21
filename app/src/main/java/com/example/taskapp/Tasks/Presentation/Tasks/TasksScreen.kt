@@ -1,7 +1,6 @@
 package com.example.taskapp.Tasks.Presentation.Tasks
 
 
-import android.annotation.SuppressLint
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -22,7 +21,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.rememberScaffoldState
-import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -40,8 +38,6 @@ import com.example.taskapp.Tasks.Presentation.Tasks.Components.TaskItem
 import com.example.taskapp.Tasks.Presentation.Utility.Screen
 import kotlinx.coroutines.launch
 
-
-@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun TasksScreen (
     navController: NavController,
@@ -57,7 +53,7 @@ fun TasksScreen (
                 onClick = {
                     navController.navigate(Screen.AddEditTaskScreen.route)
                 },
-                Modifier.background(MaterialTheme.colorScheme.primary)
+                backgroundColor = MaterialTheme.colorScheme.primary
             ) {
                 Icon(imageVector = Icons.Default.Add, contentDescription = "Добавить задачу")
             }
@@ -67,7 +63,7 @@ fun TasksScreen (
         Column (
             modifier = Modifier
                 .fillMaxSize()
-                .padding(16.dp)
+                .padding(paddingValues = it)
         ){
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -75,7 +71,7 @@ fun TasksScreen (
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "Ваша задача",
+                    text = "Ваши задачи",
                     style = MaterialTheme.typography.headlineMedium
                 )
                 IconButton(
@@ -114,9 +110,10 @@ fun TasksScreen (
                             .clickable {
                                 navController.navigate(
                                     Screen.AddEditTaskScreen.route +
-                                            "?noteId=${task.id}"
+                                            "?taskId=${task.id}"
                                 )
-                            },
+                            }
+                            .background(MaterialTheme.colorScheme.primary),
                         onDeleteClick = {
                             viewModel.onEvent(TasksEvent.DeleteTask(task))
                             scope.launch{

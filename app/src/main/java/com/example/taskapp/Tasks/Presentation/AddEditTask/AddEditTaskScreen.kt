@@ -1,6 +1,5 @@
 package com.example.taskapp.Tasks.Presentation.AddEditTask
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -14,7 +13,6 @@ import androidx.compose.material.icons.filled.Save
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.compose.material.*
@@ -24,9 +22,9 @@ import androidx.compose.ui.unit.dp
 import com.example.taskapp.Tasks.Presentation.AddEditTask.Components.TransparentHintTextField
 import kotlinx.coroutines.flow.collectLatest
 
-@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
+
 @Composable
-fun AddEditTaskEvent(
+fun AddEditTaskScreen(
     navController: NavController,
     viewModel: AddEditTaskViewModel = hiltViewModel()
 ) {
@@ -34,8 +32,6 @@ fun AddEditTaskEvent(
     val contentState = viewModel.taskContent.value
 
     val scaffoldState = rememberScaffoldState()
-
-    val scope = rememberCoroutineScope()
 
     LaunchedEffect(key1 = true){
         viewModel.eventFlow.collectLatest { event ->
@@ -71,7 +67,7 @@ fun AddEditTaskEvent(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(16.dp)
+                .padding(paddingValues = it)
         ){
             TransparentHintTextField(
                 text = titleState.text,
@@ -84,7 +80,7 @@ fun AddEditTaskEvent(
                 },
                 isHintVisible = titleState.isHintVisible,
                 singleLine = true,
-                textStyle = MaterialTheme.typography.bodySmall
+                textStyle = MaterialTheme.typography.headlineLarge
             )
             Spacer(modifier = Modifier.height(16.dp))
             TransparentHintTextField(
@@ -97,7 +93,7 @@ fun AddEditTaskEvent(
                     viewModel.onEvent(AddEditTaskEvent.ChangeContentFocus(it))
                 },
                 isHintVisible = contentState.isHintVisible,
-                textStyle = MaterialTheme.typography.bodyMedium,
+                textStyle = MaterialTheme.typography.headlineMedium,
                 modifier = Modifier.fillMaxHeight()
             )
         }

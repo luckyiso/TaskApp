@@ -15,8 +15,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.taskapp.Tasks.Domain.Model.Task
 
@@ -24,7 +24,6 @@ import com.example.taskapp.Tasks.Domain.Model.Task
 fun TaskItem(
     task: Task,
     modifier: Modifier = Modifier,
-    cornerRadius: Dp = 10.dp,
     onDeleteClick: () -> Unit
     ) {
         Box(
@@ -39,15 +38,15 @@ fun TaskItem(
                 Text(
                     text = task.Title,
                     style = MaterialTheme.typography.headlineMedium,
-                    color = MaterialTheme.colorScheme.onSurface,
+                    color = Color.Black,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
                     text = task.Desc,
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurface,
+                    style = MaterialTheme.typography.headlineSmall,
+                    color = Color.Black,
                     maxLines = 10,
                     overflow = TextOverflow.Ellipsis
                 )
@@ -59,7 +58,7 @@ fun TaskItem(
                 Icon(
                     imageVector = Icons.Default.Delete,
                     contentDescription = "Удалить задачу",
-                    tint = MaterialTheme.colorScheme.onSurface
+                    tint = Color.Black
                 )
             }
         }

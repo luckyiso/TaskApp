@@ -36,13 +36,13 @@ class AddEditTaskViewModel @Inject constructor(
     private var currentTaskId: Int? = null
 
     init{
-        savedStateHandle.get<Int>("noteId")?.let{taskId->
+        savedStateHandle.get<Int>("taskId")?.let{taskId->
             if(taskId != -1){
                 viewModelScope.launch{
                     taskUseCases.getTask(taskId)?.also{ task ->
                         currentTaskId = task.id
                         _taskTitle.value = taskTitle.value.copy(
-                            text = task.Desc,
+                            text = task.Title,
                             isHintVisible = false
                         )
                         _taskContent.value = _taskContent.value.copy(
@@ -62,7 +62,7 @@ class AddEditTaskViewModel @Inject constructor(
                     text = event.value
                 )
             }
-            is AddEditTaskEvent.ChangeContentFocus -> {
+            is AddEditTaskEvent.ChangeTitleFocus -> {
                 _taskTitle.value = taskTitle.value.copy(
                     isHintVisible = !event.focusState.isFocused &&
                             taskTitle.value.text.isBlank()
@@ -100,8 +100,6 @@ class AddEditTaskViewModel @Inject constructor(
                     }
                 }
             }
-
-            else -> {}
         }
     }
 
